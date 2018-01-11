@@ -1,6 +1,6 @@
 
 <p align="center">
-<img src="https://github.com/rcosta26/Website---VC-Guide/blob/master/logo.jpeg" width=256 height=256>
+<img src="https://github.com/rcosta26/Website---VC-Guide/blob/master/logo.jpeg" width=512 height=256>
   <h3 align="center"><b>Tour Website</b></h3>
 
   <p align="center">
