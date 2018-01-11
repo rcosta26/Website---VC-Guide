@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Turismo</title>
+
+
+
+	<meta name="viewport" content="width=device-width , initial-scale=1">
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+
+	<!-- JS para pagina em geral -->
+	<script src="index.js"></script>
+	<!-- Firebase-->
+	<script src="https://www.gstatic.com/firebasejs/3.6.5/firebase.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-auth.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-database.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-messaging.js"></script>
+	<!-- JS para gestão de firebase -->
+	<script src="firebase.js"></script>
+	<!-- Css -->
+	<link rel="stylesheet" href="estilizacao.css">
+
+	<!-- mapa -->
+	<script src="mapa.js"></script>
+</head>
+
+<body>
+
+	<div class="container">
+		<p class="round1" id="Descubra"></p>
+		<div class="customHr " style="margin-top:100px">.</div>
+
+		<div class="row">
+			<div class="col-md-10">
+				<div id="map"> </div>
+			</div>
+			<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyNW6MfdW5cY5oXKI2rumL2CC-ZS2JTV4&libraries=places&callback=initMap"
+				async defer></script>
+
+			<div class="col-md-2">
+				<div class="sidebar-nav ">
+					<div style="width: 200px; padding: 8px 0;" class="well">
+						<ul class="nav nav-list" style="padding:15px">
+							<li id="filtros">
+								<a href="#grupo0" class="list-group-item-sucess" data-toggle="collapse" data-parent="sidebar-nav">Locais
+								<i class="fa fa-toggle-down"></i></a>
+								<div class="collapse" id="grupo0">
+									<input type="radio" name="local" value="0" checked> Centro Vila do Conde<br>
+									<br>
+									<input type="radio" name="local" value="1"> ESMAD<br>
+									<br>
+									<input type="radio" name="local" value="2"> Centro Póvoa Varzim<br>
+								</div>
+
+								<a href="#grupo1" class="list-group-item-sucess" data-toggle="collapse" data-parent="sidebar-nav">Lazer
+								<i class="fa fa-toggle-down"></i></a>
+								<div class="collapse" id="grupo1">
+									<input type="radio" name="tipo" value="shopping_mall"> Shoppings<br>
+									<br>
+									<input type="radio" name="tipo" value="park"> Parques verdes<br>
+									<br>
+									<input type="radio" name="tipo" value="museum"> Múseus<br>
+								</div>
+								<a href="#grupo2" class="list-group-item-sucess" data-toggle="collapse" data-parent="sidebar-nav">Gastronomia
+								<i class="fa fa-toggle-down"></i></a>
+								<div class="collapse" id="grupo2">
+									<input type="radio" name="tipo" value="restaurant"> Restaurantes<br>
+									<br>
+									<input type="radio" name="tipo" value="food"> Comida, agora!
+
+								</div>
+								<a href="#grupo3" class="list-group-item-sucess" data-toggle="collapse" data-parent="sidebar-nav">Noite
+								<i class="fa fa-toggle-down"></i></a>
+								<div class="collapse" id="grupo3">
+									<input type="radio" name="tipo" value="bar"> Bares<br>
+									<br>
+									<input type="radio" name="tipo" value="night_club"> Discotecas<br>
+								</div>
+								<a href="#grupo4" class="list-group-item-sucess" data-toggle="collapse" data-parent="sidebar-nav">Transportes/ Estabelecimentos
+								<i class="fa fa-toggle-down"></i></a>
+								<div class="collapse" id="grupo4">
+									<input type="radio" name="tipo" value="travel_agency"> Agência de viagens<br>
+									<br>
+									<input type="radio" name="tipo" value="university"> Universidade<br>
+									<br>
+									<input type="radio" name="tipo" value="subway_station"> Metro<br>
+									<br>
+									<input type="radio" name="tipo" value="taxi_station"> Táxi<br>
+									<br>
+									<input type="radio" name="tipo" value="police"> Polícia<br>
+								</div>
+							</li>
+					</div>
+				</div>
+			</div>
+		</div>
+		<center>
+			<!-- Modal Video -->
+			<div class="modal fade" id="videoModal" tabindex="-1" role="dialog" aria-labelledby="videoModal" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content" style="background-color:rgba(0,0,0,0.2)">
+						<div class="modal-body">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<div>
+								<iframe width="560" height="315" src="https://www.youtube.com/embed/1rv77537JaM" frameborder="0" allowfullscreen></iframe>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Fim Modal -->
+
+			<!-- Modal Registo -->
+			<div class="modal fade" id="registoModal" tabindex="-1" role="dialog" aria-labelledby="registoModal" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content" style="width:250px;height:400px;background-color:rgba(255,255,255,1)">
+						<div class="modal-header">
+							<h3 style="color:grey">Registo de novo utilizador</h3>
+						</div>
+						<div class="modal-body">
+							<form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
+								<div class="form-group">
+									<label class="sr-only" for="emailreg">Email</label>
+									<input type="email" class="form-control" id="emailreg" placeholder="Endereço de Email" required>
+								</div>
+								<div class="form-group">
+									<label class="sr-only" for="passreg1">Password</label>
+									<input type="password" class="form-control" id="passreg1" placeholder="Password" required>
+								</div>
+								<div class="form-group">
+									<label class="sr-only" for="passreg2">Password</label>
+									<input type="password" class="form-control" id="passreg2" placeholder="Confirmar Password" required>
+								</div>
+								<div class="form-group">
+									<button type="button" id="registoconfirm" class="btn btn-success form-control" data-dismiss="modal">Confirmar</button>
+								</div>
+								<div class="form-group">
+									<button type="button" class="btn btn-danger form-control" data-dismiss="modal">Cancelar</button>
+								</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Fim Modal -->
+		</center>
+		<!-- NAVBAR -->
+		<nav id="mainNav" class="navbar navbar-default navbar-fixed-top" style="padding:10px;background-color:rgba(255,255,255,0.5)">
+			<div class="collapse navbar-collapse w3-container">
+				<!-- Alternar entre VC ou PV -->
+				<ul class="nav navbar-nav">
+					<li class="w3-dropdown-hover">
+						<h1>
+							Guia para Turismo em Vila do Conde / Póvoa de Varzim
+						</h1>
+					</li>
+
+
+				</ul>
+
+				<!-- Navegação -->
+				<ul class="nav navbar-nav navbar-right">
+					<li>
+						<a class="page-scroll" href="#Descubra">Descubra por Si !</a>
+					</li>
+					<li>
+						<a class="page-scroll" href="#sugest">Nossas Sugestões</a>
+					</li>
+					<li>
+						<a class="page-scroll" href="#infopanel">Contactos</a>
+					</li>
+					<!-- Form Login -->
+					<li id="logoutnav" style="display:none">
+						<a href="#" id="logout">Logout</a>
+					</li>
+					<li id="loginnav" class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Login</b> <span class="caret"></span></a>
+						<ul id="login-dp" class="dropdown-menu" style="width:200px;padding:5px">
+							<li>
+								<div class="row">
+									<div class="col-md-12">
+										<form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
+											<div class="form-group">
+												<label class="sr-only" for="emaillog">Email</label>
+												<input type="email" class="form-control" id="emaillog" placeholder="Endereço de Email" required>
+											</div>
+											<div class="form-group">
+												<label class="sr-only" for="passlog">Password</label>
+												<input type="password" class="form-control" id="passlog" placeholder="Password" required>
+												
+											</div>
+											<div class="form-group">
+												<button type="submit" id="confirm-login" class="btn btn-primary btn-block">Entrar</button>
+											</div>
+											<div class="checkbox">
+												
+											</div>
+										</form>
+									</div>
+									<div class="bottom text-center">
+										Novo aqui ? <button class="btn btn-info btn-xs" id="registo"><b>Regista-te.</b></button>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</li>
+					<!--Fim Login -->
+				</ul>
+			</div>
+		</nav>
+		<!-- Fim de navbar -->
+
+
+		<div class="customHr" id="sugest" style="margin-top:50px">.</div>
+
+		<div class="row">
+			<div class="col-md-4">
+				<h2>
+					Casino da Póvoa
+				</h2>
+				<img src="./resources/casino.jpg" alt="Casino" style="width:250px;height:140px  ">
+				<p style="margin-top:10px"> O Casino da Póvoa é edifício dos anos 30 do século XX de estilo neoclássico na Póvoa de Varzim, onde o jogo e vários
+					espectáculos têm lugar durante todo o ano. É concessionado à empresa Varzim-Sol e pertence ao mesmo grupo do Casino
+					Estoril.
+					<br>
+
+				</p>
+				<p>
+					<a class="btn" href="http://casino-povoa.com/?lang=pt" style="color:darkred">«Visita o nosso Site »</a>
+				</p>
+			</div>
+			<div class="col-md-4">
+				<h2>
+					Nau Quinhentista
+				</h2>
+				<img src="./resources/nau.jpeg" alt="NAU" style="width:250px;height:140px  ">
+				<p style="margin-top:10px"> Esta réplica de Nau está disponivel para visita na marina de Vila do Conde, das principais atracções turísticas desta
+					célebre terra.<br>
+					<br><br><br>
+				</p>
+				<p>
+					<a class="btn" href="http://www.cm-viladoconde.pt/pages/502" target="_blank" style="color:darkred">«Mais informações »</a>
+				</p>
+			</div>
+			<div class="col-md-4">
+				<h2>
+					ESMAD
+				</h2>
+				<img src="./resources/esmad.jpg" alt="ESMAD" style="width:250px;height:140px  ">
+				<p style="margin-top:10px"> Escola Superior de Media, Artes e Design, engloba cursos inovadores em Portugal como TSIW (Tecnologias e Sistemas de
+					Informação para a Web) dando assim prestígio a Vila do Conde, encontra-se num sítio de fácil acesso e com vista previligiada
+					para os Arcos.
+
+				</p>
+				<p>
+					<a class="btn" href="https://www.esmad.ipp.pt/" style="color:darkred">«Visita o nosso Site »</a>
+				</p>
+			</div>
+		</div>
+		<div class="customHr">.</div>
+		<div class="row" style="margin-top:50px">
+			<div class="jumbotron" id="infopanel">
+				<h2>Informações Relevantes</h2>
+
+				<h3>Contactos de emergência</h3>
+				<table class="table table-condensed">
+					<col width="300">
+					<col width="300">
+					<col width="300">
+					<thead>
+						<tr>
+							<th>Instituição</th>
+							<th>Vila do Conde</th>
+							<th>Póvoa de Varzim</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Bombeiros</td>
+							<td>+351 252 640 605</td>
+							<td>+351 252 291 500 </td>
+						</tr>
+						<tr>
+							<td>Hospital</td>
+							<td>+351 252 299 100</td>
+							<td>+351 252 690 600 </td>
+						</tr>
+						<tr>
+							<td>Polícia</td>
+							<td>+351 252 640 710</td>
+							<td>+351 252 298 190 </td>
+						</tr>
+
+					</tbody>
+				</table>
+				<h3>Links utéis</h3>
+				<table class="table table-condensed">
+					<col width="300">
+					<col width="300">
+					<col width="300">
+					<thead>
+						<tr>
+							<th>Tipo</th>
+							<th>Vila do Conde</th>
+							<th>Póvoa de Varzim</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Eventos</td>
+							<td><a href="https://www.bol.pt/Projecto/EntidadesAderentes/1749-teatro_m_vila_do_conde" style="color:darkred">Teatro</a></td>
+							<td><a href="https://www.bol.pt/Comprar/pesquisa/0-0-13-13-0-0/bilhetes_para_espectaculos_povoa_de_varzim" style="color:darkred">Espetáculos</a>								</td>
+						</tr>
+						<tr>
+							<td>Portais</td>
+							<td><a href="http://www.vilacondense.pt" style="color:darkred">Visita-me</a></td>
+							<td><a href="http://www.povoadevarzim.com.pt/index.php" style="color:darkred">Visita-me</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<br> <br> <br>
+
+		<div class="container-fluid">
+
+		</div>
+
+
+
+</body>
+
+</html>
